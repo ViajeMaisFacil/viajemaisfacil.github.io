@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buscador de Rotas | ViajeMaisFácil</title>
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="/img/viajemaisfacil.ico" type="image/x-icon" />
+</head>
+<body>
+  <header>
+    <a href="/index.html">
+      <img src="/img/ViajeMaisFácilLogo - Copia.jpg" alt="Logo da ViajeMaisFácil" class="logo" />
+    </a>
+    <div class="logo-container">
+      <h1>Busque sua rota • Direto ou com Conexão</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/pages/sobre.html">Sobre Nós</a></li>
+        <li><a href="/pages/empresas.html">Empresas Parceiras</a></li>
+        <li><a href="/pages/maisrotas.html">Destinos</a></li>
+        <li><a href="/pages/buscador.html">Buscar Rotas</a></li>
+        <li><a href="/pages/contato.html">Contato</a></li>
+        <li><a href="/pages/perguntas.html">Perguntas</a></li>
+        <li><a href="/pages/avaliacoes.html">Avaliações</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="planejador">
+    <h2>Planeje sua viagem</h2>
+    <p class="nota">Digite a cidade de origem e destino rotas diretas e <span class="conexao">com conexão</span> .</p>
+
+    <form id="formBusca" class="form-grid" onsubmit="event.preventDefault(); buscarRotas();">
+      <div class="campo">
+        <label for="origem">Origem</label>
+        <input id="origem" name="origem" list="listaCidades" placeholder="Ex.: Porto Alegre" required />
+      </div>
+      <div class="campo">
+        <label for="destino">Destino</label>
+        <input id="destino" name="destino" list="listaCidades" placeholder="Ex.: São Paulo" required />
+      </div>
+      <div class="campo botao">
+        <button type="submit">Buscar rotas</button>
+      </div>
+    </form>
+
+    <datalist id="listaCidades"></datalist>
+  </section>
+
+  <section id="resultados">
+    <h2>Resultados</h2>
+    <div id="cards" class="rotas-container"></div>
+    <div id="vazio" class="resultado-vazio" hidden>
+      <p>Não encontramos rotas para este par de cidades.</p>
+      <p>Se precisar, chame no WhatsApp que montamos a viagem pra você.</p>
+      <div class="botaocomprar">
+        <a class="whatsapp-button" target="_blank" href="https://wa.me/5551992213031">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="imagem-centralizada">
+    <img src="/img/RS.jpg" alt="Imagem ilustrativa" />
+  </section>
+
+  <footer>
+    <div class="rodape">
+      <a href="https://wa.me/5551992213031" target="_blank" class="whatsapp-button">Fale Conosco no WhatsApp</a>
+    </div>
+    <p>&copy; 2024 ViajeMaisFácil. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // ============== CONFIG ==============
+    const REPO_OWNER = "ViajeMaisFacil";
+    const REPO_NAME  = "ViajeMaisFacil.github.io";
+    const PAGES_DIR  = "pages";
+
+    // Hubs para conexões de 1 parada (opcional, ajuda a priorizar)
+    const HUBS_PRIORITARIOS = ["São Paulo", "Curitiba"];
+
+    // Fallback se API/manifest falhar
+    const FALLBACK_FILES = [
+      "/pages/saopaulo.html",
+      "/pages/curitiba.html",
+      "/pages/riodejaneiro.html",
+      "/pages/salvador.html",
+      "/pages/Itapema.html",
+      "/pages/Goiania.html",
+      "/pages/BH.html",
+      "/pages/vitoriadaconquista.html",
+      "/pages/recife.html",
+      "/pages/seabra.html",
+      "/pages/senhordobonfim.html",
+    ];
+
+    // Índice de rotas obtido de <h2> de cada página
+    let INDEX_ROTAS = [];
+
+    // ============== UTILS ==============
+    function norm(s) {
+      return (s || "")
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+    }
+    function capitalizar(s) {
+      return (s || "")
+        .split(" ")
+        .map(w => w.length < 3 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ")
+        .replace(/\bDa\b/g,"da").replace(/\bDe\b/g,"de").replace(/\bDo\b/g,"do")
+        .replace(/\bDas\b/g,"das").replace(/\bDos\b/g,"dos");
+    }
+
+    function extrairOrigemDestino(h2text) {
+      // guarda texto original para detectar "Conexão"
+      const raw = h2text.replace(/\s+/g, " ").trim();
+
+      // versão sem acentos p/ regex
+      const lowered = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+      // tenta padrões: 'X até Y' | 'X ate Y' | 'X -> Y' | 'X → Y'
+      let m = lowered.match(/(.+?)\s*(?:->|→|ate|até)\s*(.+)/i);
+      if (!m) {
+        // às vezes vem "Empresa ... — Porto Alegre → Rio"
+        m = lowered.match(/—\s*(.+?)\s*(?:->|→|ate|até)\s*(.+)/i);
+      }
+      if (!m) return null;
+
+      // limpa origem/destino
+      let origem = m[1].trim();
+      let destino = m[2].trim();
+      origem = origem.replace(/^empresa\s+\S+\s+—\s*/i, "");
+      destino = destino.replace(/—.*$/,"").replace(/\(.*?\)/g,"").trim();
+
+      origem = capitalizar(origem);
+      destino = capitalizar(destino);
+
+      const conexao = /conex[aã]o/i.test(raw);
+      return { origem, destino, conexao, h2: raw };
+    }
+
+    // ============== COLETA DE PÁGINAS ==============
+    async function obterListaArquivos() {
+      // 1) Manifesto manual opcional
+      try {
+        const r = await fetch("/pages/pages-index.json", { cache: "no-store" });
+        if (r.ok) {
+          const j = await r.json(); // { files: ["riodejaneiro.html", ...] } ou ["/pages/riodejaneiro.html", ...]
+          if (Array.isArray(j.files)) {
+            return j.files.map(f => f.startsWith("/") ? f : `/${PAGES_DIR}/${f}`);
+          } else if (Array.isArray(j)) {
+            return j.map(f => f.startsWith("/") ? f : `/${PAGES_DIR}/${f}`);
+          }
+        }
+      } catch(e) {}
+
+      // 2) GitHub API (lista /pages)
+      try {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAGES_DIR}`;
+        const resp = await fetch(url, { cache: "no-store" });
+        if (!resp.ok) throw new Error("GitHub API falhou");
+        const arr = await resp.json();
+        const htmls = arr
+          .filter(it => it.type === "file" && /\.html?$/i.test(it.name))
+          .map(it => `/${PAGES_DIR}/${it.name}`);
+        if (htmls.length) return htmls;
+      } catch(e) {}
+
+      // 3) Fallback hardcoded
+      return FALLBACK_FILES;
+    }
+
+    async function coletarRotas() {
+      const urls = await obterListaArquivos();
+      const index = [];
+
+      for (const url of urls) {
+        try {
+          // ignora 404 do arquivo
+          const resp = await fetch(url, { cache: "no-store" });
+          if (!resp.ok) continue;
+
+          const html = await resp.text();
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const h2el = doc.querySelector("h2");
+          if (!h2el) continue;
+
+          const info = extrairOrigemDestino(h2el.textContent || "");
+          if (!info) continue;
+
+          index.push({ url, ...info });
+        } catch(e) {
+          // segue para o próximo
+        }
+      }
+      return index;
+    }
+
+    // ============== RENDER ==============
+    function cardPagina(p) {
+      const div = document.createElement("div");
+      div.className = "rota";
+      div.innerHTML = `
+        <img src="/img/porto-alegre-sao-paulo.jpg" alt="Rota" class="rota-imagem"/>
+        <div class="rota-info">
+          <h3>${p.h2.replaceAll("<","&lt;")}</h3>
+          ${p.conexao ? '<p class="conexao">Com conexão</p>' : '<p>Rota direta ou sem indicação de conexão</p>'}
+          <p>Origem: ${p.origem}</p>
+          <p>Destino: ${p.destino}</p>
+          <div class="botaocomprar">
+            <a target="_blank" class="comprar-button" href="${p.url}">Ver horários</a>
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    function cardConexao(leg1, leg2) {
+      const div = document.createElement("div");
+      div.className = "rota";
+      const hub = leg1.destino; // por construção: leg1.origem -> hub; hub -> leg2.destino
+      div.innerHTML = `
+        <img src="/img/porto-alegre-sao-paulo.jpg" alt="Rota com Conexão" class="rota-imagem"/>
+        <div class="rota-info">
+          <h3>${leg1.origem} até<br>${leg2.destino}<br><span class="conexao">Com Conexão em ${hub}${norm(hub)==norm('São Paulo') ? ' (Tietê)' : ''}</span></h3>
+          <p><span class="label">Trecho 1:</span> ${leg1.h2.replaceAll("<","&lt;")}</p>
+          <p><span class="label">Trecho 2:</span> ${leg2.h2.replaceAll("<","&lt;")}</p>
+          <div class="botaocomprar">
+            <a target="_blank" class="comprar-button" href="${leg1.url}">Abrir Trecho 1</a>
+          </div>
+          <div class="botaocomprar" style="margin-top:8px;">
+            <a target="_blank" class="comprar-button" href="${leg2.url}">Abrir Trecho 2</a>
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    function montarConexoes(index, origem, destino) {
+      const no = norm(origem), nd = norm(destino);
+      // Todos hubs possíveis a partir das páginas coletadas
+      const hubs = new Set();
+      index.forEach(p => {
+        if (norm(p.origem) === no) hubs.add(p.destino);
+        if (norm(p.destino) === nd) hubs.add(p.origem);
+      });
+
+      // Prioriza hubs conhecidos primeiro
+      const hubsOrdenados = [
+        ...HUBS_PRIORITARIOS.filter(h => hubs.has(h)),
+        ...[...hubs].filter(h => !HUBS_PRIORITARIOS.includes(h))
+      ];
+
+      const conexoes = [];
+      for (const hub of hubsOrdenados) {
+        const leg1 = index.find(p => norm(p.origem) === no && norm(p.destino) === norm(hub));
+        const leg2 = index.find(p => norm(p.origem) === norm(hub) && norm(p.destino) === nd);
+        if (leg1 && leg2) conexoes.push({ leg1, leg2 });
+      }
+      return conexoes;
+    }
+
+    // ============== BUSCA ==============
+    function popularCidades(index) {
+      const set = new Set();
+      index.forEach(p => { set.add(p.origem); set.add(p.destino); });
+      const dl = document.getElementById("listaCidades");
+      dl.innerHTML = "";
+      [...set].sort((a,b) => a.localeCompare(b)).forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        dl.appendChild(opt);
+      });
+    }
+
+    function buscarRotas() {
+      const origem  = document.getElementById("origem").value;
+      const destino = document.getElementById("destino").value;
+
+      const cards = document.getElementById("cards");
+      const vazio = document.getElementById("vazio");
+      cards.innerHTML = "";
+
+      if (norm(origem) === norm(destino)) {
+        vazio.hidden = false;
+        vazio.querySelector("p").innerText = "Origem e destino são iguais. Escolha cidades diferentes.";
+        return;
+      }
+
+      // Match exato via <h2>
+      const exatos = INDEX_ROTAS.filter(p => norm(p.origem) === norm(origem) && norm(p.destino) === norm(destino));
+      exatos.forEach(p => cards.appendChild(cardPagina(p)));
+
+      // Conexões 1 parada via páginas existentes
+      const candidatos = montarConexoes(INDEX_ROTAS, origem, destino);
+      candidatos.forEach(({leg1, leg2}) => cards.appendChild(cardConexao(leg1, leg2)));
+
+      vazio.hidden = cards.children.length > 0;
+    }
+
+    // ============== BOOT ==============
+    window.addEventListener("DOMContentLoaded", async () => {
+      INDEX_ROTAS = await coletarRotas();
+      popularCidades(INDEX_ROTAS);
+
+      // sugestão inicial
+      document.getElementById("origem").value = "Porto Alegre";
+      document.getElementById("destino").value = "São Paulo";
+      buscarRotas();
+    });
+  </script>
+</body>
+</html>

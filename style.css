@@ -427,6 +427,22 @@ footer {
     height: auto;
 }
 
+.guia-passageiro-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.guia-passageiro-btn:hover {
+    background-color: #45a049; /* Efeito de hover */
+}
+
 
 
 
@@ -469,4 +485,164 @@ footer {
         margin-right: 0;
         margin-bottom: 10px;
     }
+}
+
+/* ====== Buscador / Planejador ====== */
+#planejador {
+  padding: 32px 20px;
+  margin: 20px 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,.08);
+}
+
+#planejador .nota {
+  text-align: center;
+  color: #555;
+  margin-top: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  max-width: 900px;
+  margin: 16px auto 0;
+}
+
+.form-grid .campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.form-grid input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.form-grid .botao {
+  display: flex;
+  align-items: end;
+}
+
+.form-grid button {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #0088a3;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.form-grid button:hover {
+  background-color: #007693;
+}
+
+/* Destaques reaproveitando seu padrão */
+.conexao { color: #d32f2f; font-weight: bold; }
+.label   { font-weight: bold; }
+
+/* Resultado */
+#resultados { padding: 24px 20px; }
+#resultados h2 { margin-bottom: 12px; }
+
+.resultado-vazio {
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 16px;
+  box-shadow: 0 0 15px rgba(0,0,0,.06);
+  margin-top: 12px;
+}
+
+/* Melhorias nos cards existentes (suas classes .rotas-container / .rota) */
+.rota-info h3 {
+  margin: 6px 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+.rota-info p {
+  margin: 8px 0;
+}
+
+/* Responsivo do buscador */
+@media (max-width: 900px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Buscador por <h2> em /pages ===== */
+#planejador {
+  padding: 32px 20px;
+  margin: 20px 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,.08);
+}
+
+#planejador .nota {
+  text-align: center;
+  color: #555;
+  margin-top: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  max-width: 900px;
+  margin: 16px auto 0;
+}
+
+.form-grid .campo { display:flex; flex-direction:column; }
+.form-grid label { font-weight:700; margin-bottom:6px; }
+.form-grid input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+}
+.form-grid .botao { display:flex; align-items:end; }
+.form-grid button {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #0088a3;
+  color: #fff; border: 0; border-radius: 8px;
+  font-weight: 700; cursor: pointer;
+}
+.form-grid button:hover { background-color: #007693; }
+
+#resultados { padding: 24px 20px; }
+#resultados h2 { margin-bottom: 12px; }
+
+.resultado-vazio {
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 16px;
+  box-shadow: 0 0 15px rgba(0,0,0,.06);
+  margin-top: 12px;
+}
+
+/* Destaques (mantendo uso de <p>) */
+.conexao { color:#d32f2f; font-weight:700; }
+.label   { font-weight:700; }
+
+/* Cards já existentes: só pequeno ajuste */
+.rota-info h3 { margin: 6px 0 8px; font-size: 1.05rem; line-height: 1.35; }
+.rota-info p  { margin: 8px 0; }
+
+@media (max-width: 900px) {
+  .form-grid { grid-template-columns: 1fr; }
 }
