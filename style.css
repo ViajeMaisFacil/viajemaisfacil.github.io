@@ -1,493 +1,292 @@
-/* Estilos Globais*/
+/* ========== Globais ========== */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F5F5F5; /* Fundo mais suave */
-    color: #333333; /* Cor do texto */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
+  color: #333333;
 }
 
-/* Cabeçalho */
+/* ========== Cabeçalho ========== */
 header {
-    background-color: #0088a3;
-    padding: 20px;
-    color: white;
-    text-align: center; /* Garante centralização do texto */
-}
-
-img.logo {
-    max-width: 100px; /* Ajuste o tamanho do logotipo conforme necessário */
-    margin-right: 20px; /* Espaçamento entre o logotipo e o restante do conteúdo */
-    margin-left: 0;
+  background-color: #0088a3;
+  padding: 20px;
+  color: white;
+  text-align: center;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center; /* Centraliza verticalmente o logo e o título */
-    justify-content: center; /* Centraliza horizontalmente o logo e o título */
-    text-align: center; /* Garante que o texto do título fique centralizado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .logo {
-    max-width: 100px; /* Tamanho da logo */
-    height: auto;
-    margin-right: 20px; /* Espaço entre a logo e o título */
-    margin-left: 0; /* Remove qualquer margem à esquerda */
+  width: 100px;        /* unificado (antes tinha max-width) */
+  height: auto;
+  margin-right: 20px;
+  margin-left: 0;
 }
 
 h1 {
-    font-size: 24px;
-    margin: 0;
-    line-height: 1.5; /* Ajusta o espaçamento entre as linhas do texto */
-    text-align: center; /* Centraliza o texto do título */
+  font-size: 24px;
+  margin: 0;
+  line-height: 1.5;
+  text-align: center;
 }
 
-/* Menu de navegação */
+/* ========== Navegação ========== */
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    display: flex;
-    justify-content: center; /* Centraliza o menu de navegação */
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-nav ul li {
-    margin-right: 20px; /* Espaçamento entre os itens */
-}
+nav ul li { margin-right: 20px; }
 
 nav a {
-    color: #333333;
-    text-decoration: none;
-    font-weight: bold;
-    
+  color: #333333;
+  text-decoration: none;
+  font-weight: bold;
 }
-
 nav a:hover {
-    text-decoration: underline;
-    color: #20B2AA;
-    
+  text-decoration: underline;
+  color: #20B2AA;
 }
 
-/* Títulos */
-h2, h3 {
-    color: #333333;
-    text-align: center;
-}
+/* ========== Títulos e texto ========== */
+h2, h3 { color: #333333; text-align: center; }
+h2 { font-size: 28px; }
+h3 { font-size: 24px; }
+p  { margin: 10px 0; font-size: 18px; }
 
-h2 {
-    font-size: 28px;
-}
-
-h3 {
-    font-size: 24px;
-}
-
-p {
-    margin: 10px 0;
-    font-size: 18px;
-}
-
-/* Seções */
+/* ========== Seções e listas ========== */
 section {
-    padding: 40px;
-    margin: 20px 0;
-    background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+  padding: 40px;
+  margin: 20px 0;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  border-radius: 10px;
 }
 
-/* Listagem de Empresas Parceiras */
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
+ul { list-style: none; padding: 0; margin: 0; }
 li {
-    background: #ecf0f1;
-    margin: 10px 0;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #ccc; /* Adiciona uma borda fina */
+  background: #ecf0f1;
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
-.parceiros {
-    display: flex;
-    align-items: center; /* Alinha os itens verticalmente */
-}
+/* ========== Parceiros / Quem somos ========== */
+.parceiros { display: flex; align-items: center; }
+.parceiros > .empresa-info { margin-left: 20px; }
+.empresa-info strong { display: block; font-size: 20px; margin-bottom: 5px; }
+.quem-somos { font-size: 16px; color: #555; line-height: 1.6; }
 
-.parceiros > .empresa-info {
-    margin-left: 20px;
-}
-
-.empresa-info strong {
-    display: block;
-    font-size: 20px;
-    margin-bottom: 5px;
-}
-
-.quem-somos {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-}
-
+/* ========== Cards de Rotas ========== */
 .rotas-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os itens se ajustem em várias linhas */
-    justify-content: center; /* Centraliza os itens horizontalmente */
-    margin: 20px; /* Espaçamento ao redor do contêiner */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
 }
-
-
 .rota {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza a imagem e o conteúdo horizontalmente */
-    padding: 15px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave ao redor da caixa */
-    border-radius: 8px; /* Arredonda os cantos da caixa */
-    max-width: 300px; /* Limita a largura da caixa de cada rota */
-    margin: 15px; /* Adiciona espaço entre as rotas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  max-width: 300px;
+  margin: 15px;
 }
-
 .rota-imagem {
-    width: 100%;
-    max-width: 250px; /* Limita a largura das imagens */
-    height: 150px; /* Define uma altura fixa para todas as imagens */
-    object-fit: cover; /* Ajusta a imagem sem distorcer */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
+  width: 100%;
+  max-width: 250px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
 }
+.rota-info { text-align: center; }
+.rota-info p { font-size: 18px; color: #333; }
 
-.rota-info {
-    text-align: center; /* Centraliza o texto */
-}
-
-.rota-info p {
-    font-size: 18px;
-    color: #333;
-}
-
-/* Estilos para a seção de busca */
+/* ========== Busca de destinos (página index) ========== */
 #busca {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    margin: 20px 0; /* Espaçamento superior e inferior */
-    flex-direction: column; /* Coloca o título e o campo de busca em coluna */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  flex-direction: column;
 }
-
-#busca h2 {
-    margin-bottom: 10px; /* Espaçamento entre o título e o campo de busca */
-    text-align: center; /* Centraliza o texto do título */
-}
-
+#busca h2 { margin-bottom: 10px; text-align: center; }
 #busca input {
-    width: 300px; /* Ajuste o tamanho do campo de busca conforme necessário */
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center; /* Centraliza o texto digitado */
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
 }
 
-
-/* Botão Comprar */
+/* ========== Botões ========== */
 .botaocomprar {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }
-
 .comprar-button {
-    border-radius: 20px;
-    border: 2px solid #28a745; /* Define a espessura e cor da borda */
-    background-color: #28a745; /* Cor verde */
-    padding: 10px 20px;
-    text-decoration: none;
-    color: white;
-    font-weight: 700;
-    text-align: center;
-    display: inline-block;
-    width: 100%;
-    max-width: 150px; /* Limita a largura do botão */
-    transition: background-color 0.3s, border-color 0.3s, transform 0.3s; /* Animações suaves */
+  border-radius: 20px;
+  border: 2px solid #28a745;
+  background-color: #28a745;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  max-width: 150px;
+  transition: background-color .3s, border-color .3s, transform .3s;
 }
-
 .comprar-button:hover {
-    background-color: #218838; /* Cor verde mais escura no hover */
-    border-color: #1e7e34; /* Cor da borda no hover */
-    transform: scale(1.05); /* Leve aumento no hover */
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: scale(1.05);
 }
 
-/* Botão Ver Mais */
-.mais-rotas {
-    text-align: center;
-    margin: 20px 0; /* Espaçamento acima e abaixo do botão */
-    width: 100%; /* Faz o botão ocupar toda a largura do contêiner */
-}
-
+/* Botão "Ver mais" */
+.mais-rotas { text-align: center; margin: 20px 0; width: 100%; }
 .mais-rotas-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #28a745; /* Cor verde */
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s; /* Animações suaves */
-    width: 100%; /* Faz o botão ocupar toda a largura do contêiner */
-    max-width: 300px; /* Limita a largura máxima do botão */
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #28a745;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color .3s, transform .3s;
+  width: 100%;
+  max-width: 300px;
 }
+.mais-rotas-button:hover { background-color: #218838; transform: scale(1.05); }
 
-.mais-rotas-button:hover {
-    background-color: #218838; /* Cor verde mais escura no hover */
-    transform: scale(1.05); /* Leve aumento no hover */
-}
-
-/* Media Queries para Responsividade */
-@media (max-width: 768px) {
-    .rotas-container {
-        flex-direction: column; /* Muda para coluna em telas menores */
-        align-items: center; /* Centraliza os itens na coluna */
-    }
-
-    .rota {
-        max-width: 90%; /* Limita a largura das rotas em telas menores */
-    }
-}
-
-/* Avaliações */
+/* ========== Avaliações ========== */
 .avaliacoes {
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.avaliacao { margin-bottom: 20px; }
+.avaliacao p { margin: 0 0 10px; }
+.estrelas { color: gold; font-size: 20px; }
 
-.avaliacao {
-    margin-bottom: 20px;
-}
-
-.avaliacao p {
-    margin: 0 0 10px;
-}
-
-.estrelas {
-    color: gold;
-    font-size: 20px;
-}
-
-footer {
-    text-align: center;
-    background-color: #0088a3;
-    color: white;
-    padding: 10px;
-}
-
-/* Perguntas */
+/* ========== Perguntas ========== */
 .perguntas {
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.pergunta { margin-bottom: 20px; }
+.pergunta h3 { margin: 0 0 10px; font-size: 18px; }
+.pergunta p { margin: 0; }
 
-.pergunta {
-    margin-bottom: 20px;
-}
-
-.pergunta h3 {
-    margin: 0 0 10px;
-    font-size: 18px;
-}
-
-.pergunta p {
-    margin: 0;
-}
-
-/* Seção de Contato */
+/* ========== Contato (form) ========== */
 .contato {
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-
-.contato h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
+.contato h2 { text-align: center; margin-bottom: 20px; }
+form { display: flex; flex-direction: column; }
+label { margin-bottom: 5px; font-weight: bold; }
 input, textarea {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
-
 button {
-    padding: 10px;
-    background-color: #0088a3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+  padding: 10px;
+  background-color: #0088a3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
 }
+button:hover { background-color: #007693; }
 
-button:hover {
-    background-color: #007693;
-}
-
-/* Seção Sobre Nós */
+/* ========== Sobre nós ========== */
 .sobre-nos {
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.sobre-nos h2 { text-align: center; margin-bottom: 20px; }
+.sobre-nos h3 { margin-top: 20px; color: #0088a3; }
+.sobre-nos p  { margin-bottom: 15px; line-height: 1.6; }
+.sobre-nos ul { margin: 10px 0; padding: 0 20px; }
+.sobre-nos ul li { margin-bottom: 10px; list-style-type: disc; }
 
-.sobre-nos h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.sobre-nos h3 {
-    margin-top: 20px;
-    color: #0088a3;
-}
-
-.sobre-nos p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.sobre-nos ul {
-    margin: 10px 0;
-    padding: 0 20px;
-}
-
-.sobre-nos ul li {
-    margin-bottom: 10px;
-    list-style-type: disc;
-}
-
-
-/* Rodapé */
+/* ========== Rodapé (unificado) ========== */
 footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #0088a3;
-    color: white;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+  text-align: center;
+  padding: 20px;
+  background-color: #0088a3;
+  color: white;
+  /* Se quiser fixo: adicione as 3 linhas abaixo e garanta padding-bottom no body
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  */
 }
-
 .whatsapp-button {
-    display: inline-block;
-    padding: 10px 20px;
-    color: white;
-    background-color: #25d366;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  background-color: #25d366;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
 }
+.whatsapp-button:hover { background-color: #128c7e; }
 
-.whatsapp-button:hover {
-    background-color: #128c7e;
-}
+/* ========== Imagem centralizada ========== */
+.imagem-centralizada { text-align: center; margin: 20px 0; }
+.imagem-centralizada img { max-width: 100%; height: auto; }
 
-/* Estilos para centralizar a imagem */
-.imagem-centralizada {
-    text-align: center;
-    margin: 20px 0;
-}
-.imagem-centralizada img {
-    max-width: 100%;
-    height: auto;
-}
-
+/* Botão guia passageiro */
 .guia-passageiro-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
 }
+.guia-passageiro-btn:hover { background-color: #45a049; }
 
-.guia-passageiro-btn:hover {
-    background-color: #45a049; /* Efeito de hover */
-}
-
-
-
-
-/* Responsividade para resoluções menores */
-@media (max-width: 1024px) {
-    .rotas-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .rota {
-        max-width: 100%;
-    }
-
-    nav ul li {
-        margin-right: 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .rota {
-        max-width: 90%;
-    }
-
-    .logo {
-        width: 60px; /* Reduz o tamanho do logo em telas menores */
-    }
-}
-
-@media (max-width: 480px) {
-    .rota {
-        max-width: 100%;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-}
-
-/* ====== Buscador / Planejador ====== */
+/* ========== Buscador / Planejador (único) ========== */
 #planejador {
   padding: 32px 20px;
   margin: 20px 0;
@@ -495,12 +294,7 @@ footer {
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,.08);
 }
-
-#planejador .nota {
-  text-align: center;
-  color: #555;
-  margin-top: 8px;
-}
+#planejador .nota { text-align: center; color: #555; margin-top: 8px; }
 
 .form-grid {
   display: grid;
@@ -509,17 +303,8 @@ footer {
   max-width: 900px;
   margin: 16px auto 0;
 }
-
-.form-grid .campo {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-grid label {
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
+.form-grid .campo { display: flex; flex-direction: column; }
+.form-grid label { font-weight: 700; margin-bottom: 6px; }
 .form-grid input {
   padding: 12px 14px;
   border: 1px solid #ccc;
@@ -527,12 +312,7 @@ footer {
   font-size: 16px;
   text-align: center;
 }
-
-.form-grid .botao {
-  display: flex;
-  align-items: end;
-}
-
+.form-grid .botao { display: flex; align-items: end; }
 .form-grid button {
   width: 100%;
   padding: 12px 16px;
@@ -543,89 +323,10 @@ footer {
   font-weight: 700;
   cursor: pointer;
 }
-.form-grid button:hover {
-  background-color: #007693;
-}
-
-/* Destaques reaproveitando seu padrão */
-.conexao { color: #d32f2f; font-weight: bold; }
-.label   { font-weight: bold; }
-
-/* Resultado */
-#resultados { padding: 24px 20px; }
-#resultados h2 { margin-bottom: 12px; }
-
-.resultado-vazio {
-  text-align: center;
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px 16px;
-  box-shadow: 0 0 15px rgba(0,0,0,.06);
-  margin-top: 12px;
-}
-
-/* Melhorias nos cards existentes (suas classes .rotas-container / .rota) */
-.rota-info h3 {
-  margin: 6px 0 8px;
-  font-size: 1.05rem;
-  line-height: 1.35;
-}
-.rota-info p {
-  margin: 8px 0;
-}
-
-/* Responsivo do buscador */
-@media (max-width: 900px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===== Buscador por <h2> em /pages ===== */
-#planejador {
-  padding: 32px 20px;
-  margin: 20px 0;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,.08);
-}
-
-#planejador .nota {
-  text-align: center;
-  color: #555;
-  margin-top: 8px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 12px;
-  max-width: 900px;
-  margin: 16px auto 0;
-}
-
-.form-grid .campo { display:flex; flex-direction:column; }
-.form-grid label { font-weight:700; margin-bottom:6px; }
-.form-grid input {
-  padding: 12px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  text-align: center;
-}
-.form-grid .botao { display:flex; align-items:end; }
-.form-grid button {
-  width: 100%;
-  padding: 12px 16px;
-  background-color: #0088a3;
-  color: #fff; border: 0; border-radius: 8px;
-  font-weight: 700; cursor: pointer;
-}
 .form-grid button:hover { background-color: #007693; }
 
 #resultados { padding: 24px 20px; }
 #resultados h2 { margin-bottom: 12px; }
-
 .resultado-vazio {
   text-align: center;
   background: #fff;
@@ -634,15 +335,31 @@ footer {
   box-shadow: 0 0 15px rgba(0,0,0,.06);
   margin-top: 12px;
 }
-
-/* Destaques (mantendo uso de <p>) */
-.conexao { color:#d32f2f; font-weight:700; }
-.label   { font-weight:700; }
-
-/* Cards já existentes: só pequeno ajuste */
+/* Destaques */
+.conexao { color: #d32f2f; font-weight: 700; }
+.label   { font-weight: 700; }
+/* Ajuste de títulos e parágrafos nos cards */
 .rota-info h3 { margin: 6px 0 8px; font-size: 1.05rem; line-height: 1.35; }
 .rota-info p  { margin: 8px 0; }
 
+/* ========== Responsivo ========== */
+@media (max-width: 1024px) {
+  .rotas-container { flex-direction: column; align-items: center; }
+  .rota { max-width: 100%; }
+  nav ul li { margin-right: 15px; }
+}
+
 @media (max-width: 900px) {
   .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .rota { max-width: 90%; }
+  .logo { width: 60px; }  /* coerente com .logo width */
+}
+
+@media (max-width: 480px) {
+  .rota { max-width: 100%; }
+  nav ul { flex-direction: column; }
+  nav ul li { margin-right: 0; margin-bottom: 10px; }
 }
